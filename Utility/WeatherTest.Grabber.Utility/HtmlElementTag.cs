@@ -3,6 +3,8 @@
     public enum HtmlElementTag
     {
         Div,
-        Span 
+        Span,
+        A,
+        Section
     }
 }

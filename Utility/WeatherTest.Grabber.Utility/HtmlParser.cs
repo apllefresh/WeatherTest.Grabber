@@ -12,9 +12,13 @@ namespace WeatherTest.Grabber.Utility
             return htmlNode.SelectSingleNode(expression);
         }
 
-        public static string[] GetValues(
-            HtmlNode htmlNode,
-            IEnumerable<TagSelector> tagSelectors)
+        public static IEnumerable<HtmlNode> GetNodes(HtmlNode htmlNode, IEnumerable<TagSelector> tagSelectors)
+        {
+            var expression = XpathExpressionBuilder.GetExpressionByTags(tagSelectors);
+            return htmlNode.SelectNodes(expression);
+        }
+
+        public static string[] GetValues(HtmlNode htmlNode, IEnumerable<TagSelector> tagSelectors)
         {
             var expression = XpathExpressionBuilder.GetExpressionByTags(tagSelectors);
 

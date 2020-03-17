@@ -11,6 +11,7 @@ namespace WeatherTest.Grabber.BusinessLogic.DI
             services.AddScoped<ICityWeatherService, CityWeatherService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IRefreshWeatherService, RefreshWeatherService>();
+            services.AddScoped<IDistrictService, DistrictService>();
 
             return services;
         }
