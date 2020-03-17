@@ -17,15 +17,20 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         public void RefreshWeather()
         {
             var cities = _cityService.Get();
-            
-//            _cityService.UpdateCities(cities)
-//                .GetAwaiter()
-//                .GetResult();
 
-            var cityWeathers = cities
+            var cityList = cities.ToList();
+            _cityService.UpdateCities(cityList)
+                .GetAwaiter()
+                .GetResult();
+
+            var cityWeathers = cityList
                 .Select(city => _cityWeatherService.Get(city))
                 .Where(cityWeather => cityWeather != null)
                 .ToList();
+
+            _cityWeatherService.Update(cityWeathers)
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

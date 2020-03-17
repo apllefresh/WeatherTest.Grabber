@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\WeatherTest.Grabber.DataAccess.Contract\WeatherTest.Grabber.DataAccess.Contract.csproj" />
     <ProjectReference Include="..\..\Utility\WeatherTest.Grabber.Utility\WeatherTest.Grabber.Utility.csproj" />
     <ProjectReference Include="..\WeatherTest.Grabber.BusinessLogic.Contract\WeatherTest.Grabber.BusinessLogic.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HtmlAgilityPack;
 using WeatherTest.Grabber.BusinessLogic.Contract.Models;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
+using WeatherTest.Grabber.DataAccess.Contract.Repositories;
 using WeatherTest.Grabber.Utility;
 
 namespace WeatherTest.Grabber.BusinessLogic.Services
@@ -16,10 +18,15 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly IEnumerable<TagSelector> _childTemperatureSelector;
         private readonly HtmlWeb _web;
 
-        public CityWeatherService()
+        private readonly ICityWeatherRepository _repository;
+        private readonly IMapper _mapper;
+
+        public CityWeatherService(ICityWeatherRepository repository, IMapper mapper)
         {
+            _repository = repository;
+            _mapper = mapper;
             _web = new HtmlWeb();
-            
+
             _parentNodeSelector = new TagSelector
             {
                 Tag = HtmlElementTag.Div,
@@ -58,7 +65,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
                     Tag = HtmlElementTag.Span
                 }
             };
-            
+
             _childTemperatureSelector = new List<TagSelector>
             {
                 _parentNodeSelector,
@@ -85,7 +92,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
             var parentNode = HtmlParser.GetSingleNode(doc.DocumentNode, _parentNodeSelector);
 
-            var times = HtmlParser.GetValues(parentNode,_childTimeSelector);
+            var times = HtmlParser.GetValues(parentNode, _childTimeSelector);
             var temperature = HtmlParser.GetValues(parentNode, _childTemperatureSelector);
 
             var temperatures = times
@@ -95,7 +102,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
                     Degree = ParseTemperature(temperature[i])
                 })
                 .ToList();
-            
+
             return new CityWeather
             {
                 City = city,
@@ -103,9 +110,9 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             };
         }
 
-        public Task Update(CityWeather cityWeather)
+        public async Task Update(IEnumerable<CityWeather> cityWeathers)
         {
-            throw new System.NotImplementedException();
+            await _repository.Update(_mapper.Map<IEnumerable<DataAccess.Contract.Models.CityWeather>>(cityWeathers));
         }
 
         private int ParseTemperature(string value)

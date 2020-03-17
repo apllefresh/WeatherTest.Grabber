@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
 using WeatherTest.Grabber.BusinessLogic.DI;
 using WeatherTest.Grabber.DataAccess.DI;
@@ -13,8 +14,8 @@ namespace WeatherTest.Grabber.Host
             var serviceProvider = new ServiceCollection()
                 .AddBusinessLogicServices()
                 .AddDataAccessServices()
+                .AddAutoMapper( typeof(BusinessLogicAutoMapperProfile).Assembly)
                 .BuildServiceProvider();
-
 
             var refreshWeatherService = serviceProvider.GetService<IRefreshWeatherService>();
 

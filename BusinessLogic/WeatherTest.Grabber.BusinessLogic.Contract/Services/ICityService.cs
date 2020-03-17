@@ -7,6 +7,6 @@ namespace WeatherTest.Grabber.BusinessLogic.Contract.Services
     public interface ICityService
     {
         IEnumerable<City> Get();
-        Task UpdateCities(IEnumerable<City> cities);
+        Task<IEnumerable<City>> UpdateCities(IEnumerable<City> cities);
     }
 }

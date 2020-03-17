@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HtmlAgilityPack;
 using WeatherTest.Grabber.BusinessLogic.Contract.Models;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
+using WeatherTest.Grabber.DataAccess.Contract.Repositories;
 using WeatherTest.Grabber.Utility;
 
 namespace WeatherTest.Grabber.BusinessLogic.Services
@@ -13,9 +15,13 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly string _url;
         private readonly HtmlWeb _web;
         private readonly IEnumerable<TagSelector> _tagSelector;
+        private readonly ICityRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CityService()
+        public CityService(ICityRepository repository, IMapper mapper)
         {
+            _repository = repository;
+            _mapper = mapper;
             _url = @"https://www.gismeteo.ru/catalog/russia/";
             _web = new HtmlWeb();
             _tagSelector = new List<TagSelector>
@@ -65,9 +71,10 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
                 .Trim();
         }
 
-        public Task UpdateCities(IEnumerable<City> cities)
+        public async Task<IEnumerable<City>> UpdateCities(IEnumerable<City> cities)
         {
-            throw new System.NotImplementedException();
+            var result = await _repository.Update(_mapper.Map<IEnumerable<DataAccess.Contract.Models.City>>(cities));
+            return _mapper.Map<IEnumerable<City>>(result);
         }
     }
 }
