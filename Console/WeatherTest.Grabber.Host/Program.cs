@@ -1,16 +1,12 @@
 ﻿using HtmlAgilityPack;
 using System;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 
 namespace WeatherTest.Grabber.Host
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -21,7 +17,7 @@ namespace WeatherTest.Grabber.Host
             var doc = web.Load(url);
 
             //var nodes = doc.DocumentNode.SelectNodes("//td[@class = 'widget__container']]");
-            var b =  doc.DocumentNode.HasClass("widget__container");
+            
             var t = doc.DocumentNode.SelectNodes("//div[contains(@class, 'widget js_widget')]");
             var p = t.Select(s => s.Id).ToList();
             //foreach (var node in nodes)
