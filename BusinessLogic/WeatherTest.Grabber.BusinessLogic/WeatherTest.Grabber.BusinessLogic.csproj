@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utility\WeatherTest.Grabber.Utility\WeatherTest.Grabber.Utility.csproj" />
+    <ProjectReference Include="..\WeatherTest.Grabber.BusinessLogic.Contract\WeatherTest.Grabber.BusinessLogic.Contract.csproj" />
+  </ItemGroup>
+
 </Project>
