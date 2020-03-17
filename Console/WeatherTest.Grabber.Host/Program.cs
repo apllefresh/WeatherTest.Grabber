@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
 using WeatherTest.Grabber.BusinessLogic.DI;
+using WeatherTest.Grabber.DataAccess.DI;
 
 namespace WeatherTest.Grabber.Host
 {
@@ -11,6 +12,7 @@ namespace WeatherTest.Grabber.Host
             //setup our DI
             var serviceProvider = new ServiceCollection()
                 .AddBusinessLogicServices()
+                .AddDataAccessServices()
                 .BuildServiceProvider();
 
 
