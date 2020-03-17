@@ -15,13 +15,14 @@ namespace WeatherTest.Grabber.BusinessLogic.DI
 
         private void MapToDataAccess()
         {
-            CreateMap<IEnumerable<BusinessModel.City>, IEnumerable<DataAccessModel.City>>();
-            CreateMap<IEnumerable<BusinessModel.CityWeather>, IEnumerable<DataAccessModel.CityWeather>>();
+            CreateMap<BusinessModel.City, DataAccessModel.City>();
+            CreateMap<List<BusinessModel.City>, List<DataAccessModel.City>>();
+            CreateMap<List<BusinessModel.CityWeather>, List<DataAccessModel.CityWeather>>();
         }
 
         private void MapToBusiness()
         {
-            CreateMap<IEnumerable<DataAccessModel.City>, IEnumerable<BusinessModel.City>>();
+            CreateMap<List<DataAccessModel.City>, List<BusinessModel.City>>();
         }
     }
 }
