@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using WeatherTest.Grabber.BusinessLogic.Contract.Models;
+﻿using System.Linq;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
 
 namespace WeatherTest.Grabber.BusinessLogic.Services
@@ -17,33 +16,16 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
         public void RefreshWeather()
         {
-            var cities = _cityService.GetCities()
-                .GetAwaiter()
-                .GetResult();
+            var cities = _cityService.Get();
             
-            _cityService.UpdateCities(cities)
-                .GetAwaiter()
-                .GetResult();
-            
-            foreach (var city in cities)
-            {
-                var task = Task.Run(async () => 
-                        await _cityWeatherService.Get(new City
-                                {
-                                    Name = "Saint-Petersburg",
-                                    Url = @"https://www.gismeteo.ru/weather-sankt-peterburg-4079/"
-                                })
-                    ).GetAwaiter()
-                    .GetResult();
-                
-                var cityWeather = _cityWeatherService.Get(city)
-                    .GetAwaiter()
-                    .GetResult();
-                
-                _cityWeatherService.Update(cityWeather)
-                    .GetAwaiter()
-                    .GetResult();
-            }
+//            _cityService.UpdateCities(cities)
+//                .GetAwaiter()
+//                .GetResult();
+
+            var cityWeathers = cities
+                .Select(city => _cityWeatherService.Get(city))
+                .Where(cityWeather => cityWeather != null)
+                .ToList();
         }
     }
 }

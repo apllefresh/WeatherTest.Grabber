@@ -77,11 +77,11 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             };
         }
 
-        public async Task<CityWeather> Get(City city)
+        public CityWeather Get(City city)
         {
             var today = DateTime.Now.Date;
             // get page
-            var doc = await _web.LoadFromWebAsync(city.Url);
+            var doc = _web.Load(city.Url);
 
             var parentNode = HtmlParser.GetSingleNode(doc.DocumentNode, _parentNodeSelector);
 

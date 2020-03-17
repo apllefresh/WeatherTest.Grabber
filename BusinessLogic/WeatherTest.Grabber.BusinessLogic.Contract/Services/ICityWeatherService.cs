@@ -5,7 +5,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Contract.Services
 {
     public interface ICityWeatherService
     {
-        Task<CityWeather> Get(City city);
+        CityWeather Get(City city);
         Task Update(CityWeather cityWeather);
     }
 }
