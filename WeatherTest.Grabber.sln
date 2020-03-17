@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.Host", "WeatherTest.Grabber.Host\WeatherTest.Grabber.Host.csproj", "{9EAA7FF0-B488-4BDF-802D-126859A1910B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.BusinessLogic", "WeatherTest.Grabber.BusinessLogic\WeatherTest.Grabber.BusinessLogic.csproj", "{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EAA7FF0-B488-4BDF-802D-126859A1910B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EAA7FF0-B488-4BDF-802D-126859A1910B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EAA7FF0-B488-4BDF-802D-126859A1910B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EAA7FF0-B488-4BDF-802D-126859A1910B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89EB3BB1-AD2C-4074-8B5B-219950A39D1C}
+	EndGlobalSection
+EndGlobal
