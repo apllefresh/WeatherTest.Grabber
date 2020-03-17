@@ -5,29 +5,35 @@ namespace WeatherTest.Grabber.Utility
 {
     public static class XpathExpressionBuilder
     {
-        private static string GetContainExpression(string property, string value)
+        private static string GetExpression(IEnumerable<TagProperty> propertyValueList)
         {
-            return $"[contains(@{property}, '{value}')]";
-        }
-
-        private static string GetMultiContainExpression(IEnumerable<(string, string)> propertyValueList, bool isAnyCondition)
-        {
-            return propertyValueList.Aggregate(
+            var expression = propertyValueList.Aggregate(
                 string.Empty,
-                (current, tuple) => current + 
-                                    ((current.Length > 0 ? (isAnyCondition ? " or " : " and ") : "") +
-                                    $"[contains(@{tuple.Item1}, '{tuple.Item2}')]"));
+                (current, tuple) => current +
+                                    ((current.Length > 0 ? " and " : "") +
+                                     $"contains(@{tuple.Name}, '{tuple.Value}')"));
+
+            return $"[{expression}]";
         }
 
-        public static string GetContainExpressionByTag(string property, string value, HtmlElementTag elementTag = HtmlElementTag.Div)
+        public static string GetExpressionByTag(TagSelector elementTag)
         {
-            return $"//{elementTag.ToString().ToLower()}{GetContainExpression(property, value)}";
-        }
-        
-        public static string GetMultiContainExpressionByTag(IEnumerable<(string, string)> propertyValueList, bool isAnyCondition, HtmlElementTag elementTag = HtmlElementTag.Div)
-        {
-            return $"//{elementTag.ToString().ToLower()}{GetMultiContainExpression(propertyValueList, isAnyCondition)}";
+            return $"//{elementTag.Tag.ToString().ToLower()}{GetExpression(elementTag.Properties)}";
         }
 
+        public static string GetExpressionByTags(IEnumerable<TagSelector> propertyValuesSelector)
+        {
+            var expression = "";
+            foreach (var selector in propertyValuesSelector)
+            {
+                expression += $"//{selector.Tag.ToString().ToLower()}";
+                if (selector.Properties != null && selector.Properties.Any())
+                {
+                    expression += $"{GetExpression(selector.Properties)}";
+                }
+            }
+
+            return expression;
+        }
     }
 }

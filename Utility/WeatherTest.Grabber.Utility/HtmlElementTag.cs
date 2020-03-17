@@ -2,6 +2,7 @@
 {
     public enum HtmlElementTag
     {
-        Div = 1
+        Div,
+        Span 
     }
 }
