@@ -19,11 +19,11 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             var cities = _cityService.Get();
 
             var cityList = cities.ToList();
-            _cityService.UpdateCities(cityList)
+            var actualCities = _cityService.UpdateCities(cityList)
                 .GetAwaiter()
                 .GetResult();
 
-            var cityWeathers = cityList
+            var cityWeathers = actualCities
                 .Select(city => _cityWeatherService.Get(city))
                 .Where(cityWeather => cityWeather != null)
                 .ToList();
