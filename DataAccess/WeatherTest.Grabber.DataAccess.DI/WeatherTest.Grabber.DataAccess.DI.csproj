@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\WeatherTest.DataContext\WeatherTest.DataContext.csproj" />
       <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.Contract\WeatherTest.Grabber.DataAccess.Contract.csproj" />
       <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.EntityFrameworkCore\WeatherTest.Grabber.DataAccess.EntityFrameworkCore.csproj" />
     </ItemGroup>
