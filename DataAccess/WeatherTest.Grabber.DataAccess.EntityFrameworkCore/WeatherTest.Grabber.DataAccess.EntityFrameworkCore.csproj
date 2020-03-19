@@ -5,18 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-<!--      <ProjectReference Include="..\..\WeatherTest.DataContext\WeatherTest.DataContext.csproj" />-->
       <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.Contract\WeatherTest.Grabber.DataAccess.Contract.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="WeatherTest.DataContext" Version="2.0.2" />
       <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.57" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="WeatherTest.DataContext, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\..\WeatherTest.DataContext\WeatherTest.DataContext\bin\Release\netcoreapp3.1\WeatherTest.DataContext.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
 </Project>
