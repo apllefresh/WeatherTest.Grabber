@@ -5,13 +5,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\WeatherTest.DataContext\WeatherTest.DataContext.csproj" />
-      <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.Contract\WeatherTest.Grabber.DataAccess.Contract.csproj" />
-      <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.EntityFrameworkCore\WeatherTest.Grabber.DataAccess.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.Contract\WeatherTest.Grabber.DataAccess.Contract.csproj" />
+        <ProjectReference Include="..\WeatherTest.Grabber.DataAccess.EntityFrameworkCore\WeatherTest.Grabber.DataAccess.EntityFrameworkCore.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.0.0" />
+        <PackageReference Include="WeatherTest.DataContext" Version="1.2.2" />
     </ItemGroup>
 
 </Project>
