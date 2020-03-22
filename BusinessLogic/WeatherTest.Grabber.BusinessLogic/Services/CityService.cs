@@ -23,7 +23,6 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly ICityRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<CityService> _logger;
-        private readonly ISettingService _settingService;
 
         public CityService(
             ICityRepository repository,
@@ -34,12 +33,11 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
-            _settingService = settingService;
 
-            _url = _settingService.GetCityCatalogPage();
+            _url = settingService.GetCityCatalogPage();
             _web = new HtmlWeb();
-            _tagSelector = _settingService.GetTagSelectorsForParseCities();
-            _domainUrlPath = _settingService.GetDomainUrlPath();
+            _tagSelector = settingService.GetTagSelectorsForParseCities();
+            _domainUrlPath = settingService.GetDomainUrlPath();
         }
 
         public IEnumerable<City> Get()

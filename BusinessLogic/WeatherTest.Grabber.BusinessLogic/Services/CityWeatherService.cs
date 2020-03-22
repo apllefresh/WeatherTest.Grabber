@@ -25,8 +25,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly ICityWeatherRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<CityWeatherService> _logger;
-        private readonly ISettingService _settingService;
-        
+
 
         public CityWeatherService(
             ICityWeatherRepository repository,
@@ -37,15 +36,14 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
-            _settingService = settingService;
 
             _web = new HtmlWeb();
 
-            _parentNodeSelector = _settingService.GetTagSelectorForCityWeatherParentNode();
-            _childTimeSelector = _settingService.GetTagSelectorsForCityWeatherTime(_parentNodeSelector);
-            _childTemperatureSelector = _settingService.GetTagSelectorsForCityWeatherDegree(_parentNodeSelector);
-            _tomorrowUrlPostfix = _settingService.GetTomorrowUrlPostfix();
-            _minusControlChar = _settingService.GetMinusControlChar();
+            _parentNodeSelector = settingService.GetTagSelectorForCityWeatherParentNode();
+            _childTimeSelector = settingService.GetTagSelectorsForCityWeatherTime(_parentNodeSelector);
+            _childTemperatureSelector = settingService.GetTagSelectorsForCityWeatherDegree(_parentNodeSelector);
+            _tomorrowUrlPostfix = settingService.GetTomorrowUrlPostfix();
+            _minusControlChar = settingService.GetMinusControlChar();
         }
 
         public CityWeather Get(City city)
@@ -76,7 +74,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
                     temperatures: temperatures
                 );
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError($"Catch error when parsing city '{city.Name}'");
                 _logger.LogError($"Error:{ex.Message}");
@@ -88,9 +86,10 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         {
             try
             {
-                await _repository.Update(_mapper.Map<IEnumerable<DataAccess.Contract.Models.CityWeather>>(cityWeathers));
+                await _repository.Update(
+                    _mapper.Map<IEnumerable<DataAccess.Contract.Models.CityWeather>>(cityWeathers));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError($"Catch error when update city: {cityWeathers.FirstOrDefault()?.City?.Name ?? "N/A"}");
                 _logger.LogError($"Error:{ex.Message}");

@@ -20,7 +20,9 @@ namespace WeatherTest.Grabber.Host
             services.AddDataAccessServices(hostBuilderContext.Configuration);
             services.AddLogging(configure => configure.AddConsole());
 
-            services.AddAutoMapper(typeof(BusinessLogicAutoMapperProfile).Assembly);
+            services.AddAutoMapper(
+                typeof(BusinessLogicAutoMapperProfile).Assembly,
+                typeof(DataAccessAutoMapperProfile).Assembly);
         }
     }
 }
