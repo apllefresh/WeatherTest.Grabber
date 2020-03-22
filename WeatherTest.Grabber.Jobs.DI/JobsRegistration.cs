@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -7,17 +8,22 @@ namespace WeatherTest.Grabber.Jobs.DI
 {
     public static class JobsRegistration
     {
-        public static IServiceCollection AddJobsServices(this IServiceCollection services)
+        private const string JOB_SCHEDULER_INTERVAL_IN_SECONDS_SECTION = "JobSchedulerIntervalInSeconds";
+        
+        public static IServiceCollection AddJobsServices(this IServiceCollection services, IConfiguration configuration)
         {
             // Add Quartz services
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
 
+            var jobsConfigurationSection = configuration.GetSection("Jobs");
+            var jobSchedulerIntervalInSeconds = int.Parse(jobsConfigurationSection[JOB_SCHEDULER_INTERVAL_IN_SECONDS_SECTION]);
+            
             // Add our job
             services.AddSingleton<RefreshWeatherJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(RefreshWeatherJob),
-                cronExpression: "1 * * * * ?")); // run every 1 minute
+                seconds: jobSchedulerIntervalInSeconds));
 
             return services;
         }

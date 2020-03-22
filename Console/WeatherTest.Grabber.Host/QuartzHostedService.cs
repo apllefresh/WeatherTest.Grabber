@@ -65,8 +65,7 @@ namespace WeatherTest.Grabber.Host
             return TriggerBuilder
                 .Create()
                 .WithIdentity($"{schedule.JobType.FullName}.trigger")
-                .WithCronSchedule(schedule.CronExpression)
-                .WithDescription(schedule.CronExpression)
+                .WithSimpleSchedule(s=> s.WithIntervalInSeconds(schedule.Seconds).RepeatForever())
                 .StartNow()
                 .Build();
         }

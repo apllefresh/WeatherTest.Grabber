@@ -4,13 +4,13 @@ namespace WeatherTest.Grabber.Jobs
 {
     public class JobSchedule
     {
-        public JobSchedule(Type jobType, string cronExpression)
+        public JobSchedule(Type jobType, int seconds)
         {
             JobType = jobType;
-            CronExpression = cronExpression;
+            Seconds = seconds;
         }
 
         public Type JobType { get; }
-        public string CronExpression { get; }
+        public int Seconds { get; }
     }
 }

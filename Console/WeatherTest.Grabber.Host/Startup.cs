@@ -15,7 +15,7 @@ namespace WeatherTest.Grabber.Host
             services.AddOptions();
             services.AddHostedService<QuartzHostedService>();
 
-            services.AddJobsServices();
+            services.AddJobsServices(hostBuilderContext.Configuration);
             services.AddBusinessLogicServices();
             services.AddDataAccessServices(hostBuilderContext.Configuration);
             services.AddLogging(configure => configure.AddConsole());
