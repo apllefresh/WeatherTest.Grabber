@@ -18,10 +18,7 @@ namespace WeatherTest.Grabber.Host
             services.AddJobsServices();
             services.AddBusinessLogicServices();
             services.AddDataAccessServices(hostBuilderContext.Configuration);
-            services.AddLogging(configure =>
-                    configure.AddConsole()
-                    .AddFilter("Microsoft", LogLevel.Warning)
-                    .AddFilter("System", LogLevel.Warning));
+            services.AddLogging(configure => configure.AddConsole());
 
             services.AddAutoMapper(typeof(BusinessLogicAutoMapperProfile).Assembly);
         }
