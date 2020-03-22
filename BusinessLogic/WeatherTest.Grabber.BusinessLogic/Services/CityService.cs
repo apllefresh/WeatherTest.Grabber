@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 using WeatherTest.Grabber.BusinessLogic.Contract.Models;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
 using WeatherTest.Grabber.DataAccess.Contract.Repositories;
@@ -15,13 +17,17 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly string _url;
         private readonly HtmlWeb _web;
         private readonly IEnumerable<TagSelector> _tagSelector;
+
         private readonly ICityRepository _repository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CityService> _logger;
 
-        public CityService(ICityRepository repository, IMapper mapper)
+        public CityService(ICityRepository repository, IMapper mapper, ILogger<CityService> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
+
             _url = @"https://www.gismeteo.ru/catalog/russia/";
             _web = new HtmlWeb();
             _tagSelector = new List<TagSelector>
@@ -47,16 +53,25 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
         public IEnumerable<City> Get()
         {
-            var doc = _web.Load(_url);
+            try
+            {
+                var doc = _web.Load(_url);
 
-            var nodes = HtmlParser.GetNodes(doc.DocumentNode, _tagSelector);
+                var nodes = HtmlParser.GetNodes(doc.DocumentNode, _tagSelector);
 
-            return nodes.Select(n => new City
+                return nodes.Select(n => new City
                 {
                     Name = ParseCityName(n.InnerHtml),
                     Url = ParseCityUrl(n.Attributes["href"]?.Value)
                 })
-                .ToList();
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Catch error when parse cities");
+                _logger.LogError($"Error:{ex.Message}");
+                throw;
+            }
         }
 
         private string ParseCityUrl(string value)

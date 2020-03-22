@@ -9,11 +9,11 @@ namespace WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories
 {
     public class CityWeatherRepository : ICityWeatherRepository
     {
-        private readonly WeatherTestDbContext _dbContextTemp1;
+        private readonly WeatherTestDbContext _dbContext;
 
-        public CityWeatherRepository(WeatherTestDbContext dbContextTemp1)
+        public CityWeatherRepository(WeatherTestDbContext dbContext)
         {
-            _dbContextTemp1 = dbContextTemp1;
+            _dbContext = dbContext;
         }
 
         public async Task Update(IEnumerable<CityWeather> cityWeathers)
@@ -30,7 +30,7 @@ namespace WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories
                     }));
             }
 
-            await _dbContextTemp1.BulkMergeAsync(entities, options => options.ColumnPrimaryKeyExpression = c => new
+            await _dbContext.BulkMergeAsync(entities, options => options.ColumnPrimaryKeyExpression = c => new
             {
                 c.CityId,
                 c.DateTime

@@ -4,6 +4,7 @@ using WeatherTest.Grabber.BusinessLogic.Contract.Services;
 using WeatherTest.Grabber.BusinessLogic.DI;
 using WeatherTest.Grabber.DataAccess.DI;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace WeatherTest.Grabber.Host
 {
@@ -15,12 +16,16 @@ namespace WeatherTest.Grabber.Host
 
             builder.AddJsonFile("appsettings.json");
             var config = builder.Build();
-            
+
             //setup our DI
             var serviceProvider = new ServiceCollection()
                 .AddBusinessLogicServices()
                 .AddDataAccessServices(config)
                 .AddAutoMapper(typeof(BusinessLogicAutoMapperProfile).Assembly)
+                .AddLogging(configure =>
+                    configure.AddConsole()
+                    .AddFilter("Microsoft", LogLevel.Warning)
+                    .AddFilter("System", LogLevel.Warning))
                 .BuildServiceProvider();
 
             var refreshWeatherService = serviceProvider.GetService<IRefreshWeatherService>();

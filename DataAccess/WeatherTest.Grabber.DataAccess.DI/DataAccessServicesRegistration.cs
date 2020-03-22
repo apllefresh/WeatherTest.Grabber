@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WeatherTest.DataContext.DI;
 using WeatherTest.Grabber.DataAccess.Contract.Repositories;
 using WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories;
@@ -13,7 +14,7 @@ namespace WeatherTest.Grabber.DataAccess.DI
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICityWeatherRepository, CityWeatherRepository>();
             services.AddDbContextServices(configuration);
-
+           
             return services;
         }
     }
