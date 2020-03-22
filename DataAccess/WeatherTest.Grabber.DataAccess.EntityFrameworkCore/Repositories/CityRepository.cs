@@ -37,11 +37,11 @@ namespace WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories
         {
             var entities = await _dbContext.Cities.ToListAsync();
             return entities.Select(c => new City
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Url = c.Url
-                })
+                (
+                    id: c.Id,
+                    name: c.Name,
+                    url: c.Url
+                ))
                 .ToList();
         }
     }

@@ -4,8 +4,14 @@ namespace WeatherTest.Grabber.DataAccess.Contract.Models
 {
     public class Temperature
     {
-        public DateTime DateTime { get; set; }
-        public int Degree { get; set; }
+        public Temperature(DateTime dateTime, int degree)
+        {
+            DateTime = dateTime;
+            Degree = degree;
+        }
+
+        public DateTime DateTime { get;}
+        public int Degree { get;}
         
     }
 }

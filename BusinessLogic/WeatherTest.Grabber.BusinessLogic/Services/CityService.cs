@@ -51,10 +51,11 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
                 var nodes = HtmlParser.GetNodes(doc.DocumentNode, _tagSelector);
 
                 return nodes.Select(n => new City
-                {
-                    Name = ParseCityName(n.InnerHtml),
-                    Url = ParseCityUrl(n.Attributes["href"]?.Value)
-                })
+                    (
+                        id: 0,
+                        name: ParseCityName(n.InnerHtml),
+                        url: ParseCityUrl(n.Attributes["href"]?.Value)
+                    ))
                     .ToList();
             }
             catch (Exception ex)

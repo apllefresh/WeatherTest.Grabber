@@ -64,17 +64,17 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
                 var temperatures = times
                     .Select((t, i) => new Temperature
-                    {
-                        DateTime = tomorrow.AddHours(int.Parse(t)),
-                        Degree = ParseTemperature(temperature[i])
-                    })
+                    (
+                        dateTime: tomorrow.AddHours(int.Parse(t)),
+                        degree: ParseTemperature(temperature[i])
+                    ))
                     .ToList();
 
                 return new CityWeather
-                {
-                    City = city,
-                    Temperatures = temperatures
-                };
+                (
+                    city: city,
+                    temperatures: temperatures
+                );
             }
             catch(Exception ex)
             {
