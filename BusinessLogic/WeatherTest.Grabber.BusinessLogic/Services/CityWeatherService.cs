@@ -86,7 +86,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
         public CityWeather Get(City city)
         {
-            var today = DateTime.Now.Date;
+            var tomorrow = DateTime.Now.AddDays(1).Date;
             // get page
             var doc = _web.Load($"{city.Url}/tomorrow/");
 
@@ -98,7 +98,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             var temperatures = times
                 .Select((t, i) => new Temperature
                 {
-                    DateTime = today.AddHours(int.Parse(t)),
+                    DateTime = tomorrow.AddHours(int.Parse(t)),
                     Degree = ParseTemperature(temperature[i])
                 })
                 .ToList();
