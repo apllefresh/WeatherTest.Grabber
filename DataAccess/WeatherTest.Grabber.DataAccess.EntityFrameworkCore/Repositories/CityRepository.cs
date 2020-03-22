@@ -12,17 +12,14 @@ namespace WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories
     public class CityRepository : ICityRepository
     {
         private readonly WeatherTestDbContext _dbContext;
-        private readonly ILogger<CityRepository> _logger;
 
-        public CityRepository(WeatherTestDbContext dbContext, ILogger<CityRepository> logger)
+        public CityRepository(WeatherTestDbContext dbContext)
         {
             _dbContext = dbContext;
-            _logger = logger;
         }
 
         public async Task<List<City>> Update(IEnumerable<City> cities)
         {
-            _logger.LogInformation($"Update {cities.Count()} cities");
             var entities = cities.Select(c => new DataContext.Entities.City
             {
                 Name = c.Name,

@@ -4,6 +4,7 @@ using WeatherTest.Grabber.Utility;
 
 namespace WeatherTest.Grabber.BusinessLogic.Services
 {
+    // TODO: move setting to db
     public class SettingService : ISettingService
     {
         public string GetCityCatalogPage()
