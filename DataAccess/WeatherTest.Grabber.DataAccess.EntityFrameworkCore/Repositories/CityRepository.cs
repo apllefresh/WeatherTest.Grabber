@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using WeatherTest.DataContext;
 using WeatherTest.Grabber.DataAccess.Contract.Models;
 using WeatherTest.Grabber.DataAccess.Contract.Repositories;

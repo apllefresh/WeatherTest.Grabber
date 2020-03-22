@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WeatherTest.Grabber.Utility
+namespace WeatherTest.Grabber.Utility.Models
 {
     public class TagSelector
     {

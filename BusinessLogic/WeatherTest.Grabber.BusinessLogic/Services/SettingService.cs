@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeatherTest.Grabber.BusinessLogic.Contract.Services;
-using WeatherTest.Grabber.Utility;
+using WeatherTest.Grabber.Utility.Models;
 
 namespace WeatherTest.Grabber.BusinessLogic.Services
 {

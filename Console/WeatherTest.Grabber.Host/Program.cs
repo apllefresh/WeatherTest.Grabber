@@ -1,36 +1,31 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
-using WeatherTest.Grabber.BusinessLogic.Contract.Services;
-using WeatherTest.Grabber.BusinessLogic.DI;
-using WeatherTest.Grabber.DataAccess.DI;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Threading;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace WeatherTest.Grabber.Host
 {
     internal static class Program
     {
-        private static void Main()
+        private static async Task Main()
         {
-            var builder = new ConfigurationBuilder();
+            var cancellationToken = new CancellationToken();
 
-            builder.AddJsonFile("appsettings.json");
-            var config = builder.Build();
+            var builder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .UseWindowsService()
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: true);
+                })
+                .ConfigureServices(Startup.ConfigureServices)
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddConsole();
+                }).Build();
 
-            //setup our DI
-            var serviceProvider = new ServiceCollection()
-                .AddBusinessLogicServices()
-                .AddDataAccessServices(config)
-                .AddAutoMapper(typeof(BusinessLogicAutoMapperProfile).Assembly)
-                .AddLogging(configure =>
-                    configure.AddConsole()
-                    .AddFilter("Microsoft", LogLevel.Warning)
-                    .AddFilter("System", LogLevel.Warning))
-                .BuildServiceProvider();
-
-            var refreshWeatherService = serviceProvider.GetService<IRefreshWeatherService>();
-
-            refreshWeatherService.RefreshWeather();
+            await builder.RunAsync(cancellationToken);
         }
     }
 }

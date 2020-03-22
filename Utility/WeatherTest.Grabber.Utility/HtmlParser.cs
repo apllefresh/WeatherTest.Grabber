@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
+using WeatherTest.Grabber.Utility.Models;
 
 namespace WeatherTest.Grabber.Utility
 {

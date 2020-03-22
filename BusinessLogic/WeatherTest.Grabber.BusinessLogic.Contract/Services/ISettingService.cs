@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WeatherTest.Grabber.Utility;
+using WeatherTest.Grabber.Utility.Models;
 
 namespace WeatherTest.Grabber.BusinessLogic.Contract.Services
 {

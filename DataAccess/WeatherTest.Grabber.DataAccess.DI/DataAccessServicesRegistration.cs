@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using WeatherTest.DataContext.DI;
 using WeatherTest.Grabber.DataAccess.Contract.Repositories;
 using WeatherTest.Grabber.DataAccess.EntityFrameworkCore.Repositories;

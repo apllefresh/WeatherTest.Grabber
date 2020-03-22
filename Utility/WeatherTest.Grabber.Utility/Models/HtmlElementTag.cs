@@ -1,4 +1,4 @@
-﻿namespace WeatherTest.Grabber.Utility
+﻿namespace WeatherTest.Grabber.Utility.Models
 {
     public enum HtmlElementTag
     {

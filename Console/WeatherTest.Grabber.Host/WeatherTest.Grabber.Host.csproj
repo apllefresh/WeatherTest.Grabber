@@ -12,12 +12,16 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BusinessLogic\WeatherTest.Grabber.BusinessLogic.DI\WeatherTest.Grabber.BusinessLogic.DI.csproj" />
     <ProjectReference Include="..\..\DataAccess\WeatherTest.Grabber.DataAccess.DI\WeatherTest.Grabber.DataAccess.DI.csproj" />
+    <ProjectReference Include="..\..\WeatherTest.Grabber.Jobs.DI\WeatherTest.Grabber.Jobs.DI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
