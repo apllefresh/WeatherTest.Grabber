@@ -88,7 +88,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         {
             var today = DateTime.Now.Date;
             // get page
-            var doc = _web.Load(city.Url);
+            var doc = _web.Load($"{city.Url}/tomorrow/");
 
             var parentNode = HtmlParser.GetSingleNode(doc.DocumentNode, _parentNodeSelector);
 
