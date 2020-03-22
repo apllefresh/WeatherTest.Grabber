@@ -19,7 +19,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly IEnumerable<TagSelector> _childTimeSelector;
         private readonly IEnumerable<TagSelector> _childTemperatureSelector;
         private readonly HtmlWeb _web;
-        private readonly string _tomorrowUrlPostffix;
+        private readonly string _tomorrowUrlPostfix;
         private readonly string _minusControlChar;
 
         private readonly ICityWeatherRepository _repository;
@@ -44,7 +44,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             _parentNodeSelector = _settingService.GetTagSelectorForCityWeatherParentNode();
             _childTimeSelector = _settingService.GetTagSelectorsForCityWeatherTime(_parentNodeSelector);
             _childTemperatureSelector = _settingService.GetTagSelectorsForCityWeatherDegree(_parentNodeSelector);
-            _tomorrowUrlPostffix = _settingService.GetTomorrowUrlPostfix();
+            _tomorrowUrlPostfix = _settingService.GetTomorrowUrlPostfix();
             _minusControlChar = _settingService.GetMinusControlChar();
         }
 
@@ -55,7 +55,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             {
                 var tomorrow = DateTime.Now.AddDays(1).Date;
                 // get page
-                var doc = _web.Load($"{city.Url}{_tomorrowUrlPostffix}");
+                var doc = _web.Load($"{city.Url}{_tomorrowUrlPostfix}");
 
                 var parentNode = HtmlParser.GetSingleNode(doc.DocumentNode, _parentNodeSelector);
 

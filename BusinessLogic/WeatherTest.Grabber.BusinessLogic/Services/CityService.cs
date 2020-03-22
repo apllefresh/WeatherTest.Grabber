@@ -29,12 +29,12 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             ICityRepository repository,
             IMapper mapper,
             ILogger<CityService> logger,
-            ISettingService setingService)
+            ISettingService settingService)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
-            _settingService = setingService;
+            _settingService = settingService;
 
             _url = _settingService.GetCityCatalogPage();
             _web = new HtmlWeb();
