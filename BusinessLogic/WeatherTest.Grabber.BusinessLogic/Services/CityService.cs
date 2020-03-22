@@ -17,38 +17,28 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly string _url;
         private readonly HtmlWeb _web;
         private readonly IEnumerable<TagSelector> _tagSelector;
+        private readonly string _domainUrlPath;
 
         private readonly ICityRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<CityService> _logger;
+        private readonly ISettingService _settingService;
 
-        public CityService(ICityRepository repository, IMapper mapper, ILogger<CityService> logger)
+        public CityService(
+            ICityRepository repository,
+            IMapper mapper,
+            ILogger<CityService> logger,
+            ISettingService setingService)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
+            _settingService = setingService;
 
-            _url = @"https://www.gismeteo.ru/catalog/russia/";
+            _url = _settingService.GetCityCatalogPage();
             _web = new HtmlWeb();
-            _tagSelector = new List<TagSelector>
-            {
-                new TagSelector
-                {
-                    Tag = HtmlElementTag.Section,
-                    Properties = new List<TagProperty>
-                    {
-                        new TagProperty
-                        {
-                            Name = "class",
-                            Value = "catalog_block catalog_popular"
-                        }
-                    }
-                },
-                new TagSelector
-                {
-                    Tag = HtmlElementTag.A
-                }
-            };
+            _tagSelector = _settingService.GetTagSelectorsForParseCities();
+            _domainUrlPath = _settingService.GetDomainUrlPath();
         }
 
         public IEnumerable<City> Get()
@@ -76,7 +66,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
         private string ParseCityUrl(string value)
         {
-            return $"https://www.gismeteo.ru{value}";
+            return $"{_domainUrlPath}{value}";
         }
 
         private string ParseCityName(string value)

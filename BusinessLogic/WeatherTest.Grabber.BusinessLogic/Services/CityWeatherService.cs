@@ -18,73 +18,33 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
         private readonly IEnumerable<TagSelector> _childTimeSelector;
         private readonly IEnumerable<TagSelector> _childTemperatureSelector;
         private readonly HtmlWeb _web;
+        private readonly string _tomorrowUrlPostffix;
+        private readonly string _minusControlChar;
 
         private readonly ICityWeatherRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<CityWeatherService> _logger;
+        private readonly ISettingService _settingService;
+        
 
-        public CityWeatherService(ICityWeatherRepository repository, IMapper mapper, ILogger<CityWeatherService> logger)
+        public CityWeatherService(
+            ICityWeatherRepository repository,
+            IMapper mapper,
+            ILogger<CityWeatherService> logger,
+            ISettingService settingService)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
+            _settingService = settingService;
+
             _web = new HtmlWeb();
 
-            _parentNodeSelector = new TagSelector
-            {
-                Tag = HtmlElementTag.Div,
-                Properties = new List<TagProperty>
-                {
-                    new TagProperty()
-                    {
-                        Name = "class",
-                        Value = "widget js_widget"
-                    },
-                    new TagProperty
-                    {
-                        Name = "data-widget-id",
-                        Value = "forecast"
-                    }
-                }
-            };
-
-            _childTimeSelector = new List<TagSelector>
-            {
-                _parentNodeSelector,
-                new TagSelector
-                {
-                    Tag = HtmlElementTag.Div,
-                    Properties = new List<TagProperty>
-                    {
-                        new TagProperty
-                        {
-                            Name = "class",
-                            Value = "w_time"
-                        }
-                    }
-                },
-                new TagSelector
-                {
-                    Tag = HtmlElementTag.Span
-                }
-            };
-
-            _childTemperatureSelector = new List<TagSelector>
-            {
-                _parentNodeSelector,
-                new TagSelector
-                {
-                    Tag = HtmlElementTag.Span,
-                    Properties = new List<TagProperty>
-                    {
-                        new TagProperty
-                        {
-                            Name = "class",
-                            Value = "unit unit_temperature_c"
-                        }
-                    }
-                }
-            };
+            _parentNodeSelector = _settingService.GetTagSelectorForCityWeatherParentNode();
+            _childTimeSelector = _settingService.GetTagSelectorsForCityWeatherTime(_parentNodeSelector);
+            _childTemperatureSelector = _settingService.GetTagSelectorsForCityWeatherDegree(_parentNodeSelector);
+            _tomorrowUrlPostffix = _settingService.GetTomorrowUrlPostfix();
+            _minusControlChar = _settingService.GetMinusControlChar();
         }
 
         public CityWeather Get(City city)
@@ -94,7 +54,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
             {
                 var tomorrow = DateTime.Now.AddDays(1).Date;
                 // get page
-                var doc = _web.Load($"{city.Url}/tomorrow/");
+                var doc = _web.Load($"{city.Url}{_tomorrowUrlPostffix}");
 
                 var parentNode = HtmlParser.GetSingleNode(doc.DocumentNode, _parentNodeSelector);
 
@@ -139,7 +99,7 @@ namespace WeatherTest.Grabber.BusinessLogic.Services
 
         private int ParseTemperature(string value)
         {
-            var stringValue = value.Replace("&minus;", "-");
+            var stringValue = value.Replace(_minusControlChar, "-");
             if (!int.TryParse(stringValue, out var result))
             {
                 throw new InvalidCastException($"Can't parse temperature from value: {value}'");
