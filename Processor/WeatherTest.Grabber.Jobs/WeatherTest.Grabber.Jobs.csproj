@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\WeatherTest.Grabber.BusinessLogic.DI\WeatherTest.Grabber.BusinessLogic.DI.csproj" />
+    <ProjectReference Include="..\..\BusinessLogic\WeatherTest.Grabber.BusinessLogic.DI\WeatherTest.Grabber.BusinessLogic.DI.csproj" />
   </ItemGroup>
   
 </Project>

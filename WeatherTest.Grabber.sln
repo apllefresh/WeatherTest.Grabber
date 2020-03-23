@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherTest.Grabber.Host", "Console\WeatherTest.Grabber.Host\WeatherTest.Grabber.Host.csproj", "{9EAA7FF0-B488-4BDF-802D-126859A1910B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherTest.Grabber.Host", "Processor\WeatherTest.Grabber.Host\WeatherTest.Grabber.Host.csproj", "{9EAA7FF0-B488-4BDF-802D-126859A1910B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherTest.Grabber.BusinessLogic", "BusinessLogic\WeatherTest.Grabber.BusinessLogic\WeatherTest.Grabber.BusinessLogic.csproj", "{28DE9CB2-1EB8-49E6-B485-BF444B0654C9}"
 EndProject
@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherTest.Grabber.DataAcc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherTest.Grabber.DataAccess.EntityFrameworkCore", "DataAccess\WeatherTest.Grabber.DataAccess.EntityFrameworkCore\WeatherTest.Grabber.DataAccess.EntityFrameworkCore.csproj", "{6C507951-561B-4B50-9EEE-632A7AEB5C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.Jobs", "WeatherTest.Grabber.Jobs\WeatherTest.Grabber.Jobs.csproj", "{18F7CB02-91D6-4D30-B47F-A261761C201B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.Jobs", "Processor\WeatherTest.Grabber.Jobs\WeatherTest.Grabber.Jobs.csproj", "{18F7CB02-91D6-4D30-B47F-A261761C201B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.Jobs.DI", "WeatherTest.Grabber.Jobs.DI\WeatherTest.Grabber.Jobs.DI.csproj", "{28C602B3-B852-4D19-BBD5-475C1A2B86F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherTest.Grabber.Jobs.DI", "Processor\WeatherTest.Grabber.Jobs.DI\WeatherTest.Grabber.Jobs.DI.csproj", "{28C602B3-B852-4D19-BBD5-475C1A2B86F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
